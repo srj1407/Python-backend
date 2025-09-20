@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from typing import Optional
 app = FastAPI()
 
 @app.get("/")
@@ -30,3 +30,21 @@ def create_item(item: Item):
         "price": item.price,
         "in_stock": item.in_stock
     }
+
+@app.get("/search/")
+def search_items(q: Optional[str] = None, limit: int = 10):
+    return {"query": q, "limit": limit}
+
+class Address(BaseModel):
+    city: str
+    state: str
+    country: str
+
+class User(BaseModel):
+    username: str
+    email: str
+    address: Address
+
+@app.post("/users/")
+def create_user(user: User):
+    return {"message": "User created successfully", "user": user}

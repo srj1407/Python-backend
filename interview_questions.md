@@ -34,3 +34,41 @@
 **Q4. Blog API Design — Path vs Query Params**  
 - Get a specific blog post → Path param (`/posts/{id}`).  
 - Filter blog posts by author → Query param (`/posts?author=shashwat`).  
+
+# Day 3 – Interview & System Design
+
+---
+
+**Q1. How do you define optional query parameters in FastAPI?**  
+- Use `Optional[type] = None` or provide a default value.  
+- Example:  
+  ```python
+  @app.get("/search/")
+  def search(q: Optional[str] = None, limit: int = 10):
+      return {"query": q, "limit": limit}
+
+Q2. What are nested request bodies in FastAPI?
+
+You can define Pydantic models inside other models.
+
+Useful for complex data (like User with Address).
+
+FastAPI validates the entire nested JSON automatically.
+
+Q3. What error do you get if nested fields are missing or invalid?
+
+FastAPI returns 422 Unprocessable Entity with detailed validation errors.
+
+Q4. If you are designing a Task Manager API, how would you structure the endpoints?
+
+POST /tasks → Create a task
+
+GET /tasks → Get all tasks (with optional filters like status=completed)
+
+GET /tasks/{id} → Get task by ID
+
+PUT /tasks/{id} → Update task
+
+DELETE /tasks/{id} → Delete task
+
+Users and authentication can be added later for multi-user support.
